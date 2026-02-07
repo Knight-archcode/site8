@@ -44,7 +44,7 @@
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
         }
 
-      // Add marker selection styling in CSS
+      /* Add marker selection styling in CSS */
 .marker.selected {
     border-color: #f59e0b;
     border-width: 4px;
@@ -72,15 +72,7 @@
             box-shadow: 0 6px 20px rgba(79, 70, 229, 0.6);
         }
         
-        .connection-line {
-            position: absolute;
-            height: 3px;
-            background: linear-gradient(90deg, #4f46e5, #7c3aed);
-            transform-origin: 0 0;
-            pointer-events: none;
-            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.4);
-        }
-        
+   
         .mode-button {
             transition: all 0.3s ease;
         }
@@ -669,7 +661,7 @@ function handleMarkerConnection(markerId, markerElement) {
         });
         
         // Update display
-        renderFloorPlan();
+       loadFloorPlan();
     }
 }
 
