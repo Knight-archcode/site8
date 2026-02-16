@@ -485,7 +485,12 @@
                 const endVal = document.getElementById('endLocation').value;
                 if (startVal && endVal) {
                     setTimeout(() => findRoute(), 100);
-                }
+                } || { /*check*/
+                if (startVal === endVal) {
+    showNotification('You are already at the destination', 'info');
+    return;
+}
+
             }
         }
 
@@ -627,7 +632,9 @@
                             const marker1 = floor.markers.find(m => m.id === segment.markerId);
                             const marker2 = floor.markers.find(m => m.id === nextSegment.markerId);
                             if (marker1 && marker2) {
-                                drawLine(container, marker1, marker2, true, segment.action === 'elevator');
+                               const isElevator = segment.action === 'elevator' || nextSegment.action === 'elevator';
+                               drawLine(container, marker1, marker2, true, isElevator);
+
                             }
                         }
                     }
@@ -774,6 +781,8 @@
                                     const node1 = `${floor1}-${e1.id}`;
                                     const node2 = `${floor2}-${e2.id}`;
                                     graph[node1].push({ node: node2, distance: 10, elevator: true });
+                                    graph[node2].push({ node: node1, distance: 10, elevator: true });
+
                                 });
                             });
                         }
@@ -954,7 +963,7 @@
             const cross = v1.x * v2.y - v1.y * v2.x;
             
             if (Math.abs(cross) < 0.1) return 'Go straight';
-            return cross > 0 ? 'Turn right' : 'Turn left';
+            return cross > 0 ? 'Turn left' : 'Turn right';
         }
 
         // Generate QR code
